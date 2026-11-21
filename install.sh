@@ -259,10 +259,11 @@ import_auth_and_settings() {
   chmod 700 "$HOME/.codex"
   write_b64_file "CODEX_AUTH_B64" "$HOME/.codex/auth.json" 600
 
-  # Antigravity (agy + remote hub)
+  # Antigravity (agy CLI + remote hub)
   mkdir -p "$HOME/.gemini" "$HOME/.gemini/antigravity-cli"
   chmod 700 "$HOME/.gemini"
   write_b64_file "AGY_OAUTH_B64" "$HOME/.gemini/jetski-standalone-oauth-token" 600
+  write_b64_file "AGY_OAUTH_B64" "$HOME/.gemini/antigravity-cli/antigravity-oauth-token" 600
   write_b64_file "AGY_SETTINGS_B64" "$HOME/.gemini/antigravity-cli/settings.json" 600
 
   # OpenCode v2 config files
@@ -310,9 +311,10 @@ print_summary() {
     fi
     log "  $cmd: $p ($ver)"
   done
-  log "  codex auth: $( [ -f "$HOME/.codex/auth.json" ] && echo present || echo missing )"
-  log "  agy oauth:  $( [ -f "$HOME/.gemini/jetski-standalone-oauth-token" ] && echo present || echo missing )"
-  log "  opencode:   $( [ -f "$HOME/.local/share/opencode/.devpod-auth-imported" ] && echo imported || echo not-imported )"
+  log "  codex auth:    $( [ -f "$HOME/.codex/auth.json" ] && echo present || echo missing )"
+  log "  agy hub oauth: $( [ -f "$HOME/.gemini/jetski-standalone-oauth-token" ] && echo present || echo missing )"
+  log "  agy cli oauth: $( [ -f "$HOME/.gemini/antigravity-cli/antigravity-oauth-token" ] && echo present || echo missing )"
+  log "  opencode:      $( [ -f "$HOME/.local/share/opencode/.devpod-auth-imported" ] && echo imported || echo not-imported )"
 }
 
 main() {
